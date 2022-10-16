@@ -67,6 +67,8 @@ class App extends Component {
   handleSubmit() {
     console.log("Handling submit")
     if (parseInt(this.state.solution) === (this.state.leftOperand + this.state.rightOperand)) {
+      let audio = new Audio("/sonic.mp3")
+      audio.play()
       this.setState({
         leftOperand: this.getDifficultyAdjustedNumber(),
         rightOperand: this.getDifficultyAdjustedNumber(),
@@ -76,6 +78,8 @@ class App extends Component {
         feedback: this.getPositiveFeedback() 
       })
     } else {
+      let audio = new Audio("/mario.mp3")
+      audio.play()
       this.setState({
         solution: "",
         streak: 0,
