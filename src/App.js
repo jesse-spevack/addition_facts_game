@@ -72,7 +72,7 @@ class App extends Component {
         rightOperand: this.getDifficultyAdjustedNumber(),
         solution: "",
         streak: this.state.streak + 1,
-        score: this.state.streak + 1,
+        score: this.state.score + 1,
         feedback: this.getPositiveFeedback() 
       })
     } else {
