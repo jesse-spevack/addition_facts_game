@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/addition_facts_game/static/css/main.e2b1bad1.css",
+    "main.js": "/addition_facts_game/static/js/main.def62a36.js",
+    "static/js/787.aa171e0e.chunk.js": "/addition_facts_game/static/js/787.aa171e0e.chunk.js",
+    "index.html": "/addition_facts_game/index.html",
+    "main.e2b1bad1.css.map": "/addition_facts_game/static/css/main.e2b1bad1.css.map",
+    "main.def62a36.js.map": "/addition_facts_game/static/js/main.def62a36.js.map",
+    "787.aa171e0e.chunk.js.map": "/addition_facts_game/static/js/787.aa171e0e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e2b1bad1.css",
+    "static/js/main.def62a36.js"
+  ]
+}
