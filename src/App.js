@@ -104,7 +104,7 @@ class App extends Component {
         <div className="overflow-hidden rounded-lg bg-slate-700 shadow">
           <div className="p-1 grid grid-cols-2">
             <div className="p-4">
-              <h1 className={this.state.score == 0 ? "text-left" : "text-4xl text-left"}>{this.state.feedback}</h1>
+              <h1 className={this.state.score == 0 ? "text-sm text-left" : "text-4xl text-left"}>{this.state.feedback}</h1>
             </div>
             <div className="p-1">
               <h1 className="text-sm text-right">Score: {this.state.score}</h1>
