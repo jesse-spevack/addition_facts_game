@@ -23,7 +23,7 @@ class Keys extends Component {
     })
 
     return (
-      <div className="px-5 grid grid-cols-3 gap-4">
+      <div className="px-6 grid grid-cols-3 gap-3">
         {displayKeys}
       </div>
     );
