@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AdditionProblem from './AdditionProblem';
 import Solution from './Solution';
 import Keyboard from './Keyboard';
+import metadata from './metadata.json'
 
 class App extends Component {
   constructor() {
@@ -83,6 +84,9 @@ class App extends Component {
           delete={this.deleteSolution}
           submit={this.handleSubmit}
         />
+        <div className="p-1">
+          <p className="text-xs text-right">Version: {metadata.buildMajor}.{metadata.buildMinor}.{metadata.buildRevision} {metadata.buildTag}</p>
+        </div>
       </div>
     )
   }
