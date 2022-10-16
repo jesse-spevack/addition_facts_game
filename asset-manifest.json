@@ -1,15 +1,17 @@
 {
   "files": {
     "main.css": "/addition_facts_game/static/css/main.218d7d93.css",
-    "main.js": "/addition_facts_game/static/js/main.c4a63cf7.js",
+    "main.js": "/addition_facts_game/static/js/main.e274bb3b.js",
     "static/js/787.aa171e0e.chunk.js": "/addition_facts_game/static/js/787.aa171e0e.chunk.js",
+    "static/media/mario.mp3": "/addition_facts_game/static/media/mario.ab7a09cb02a9d6303c9b.mp3",
+    "static/media/sonic.mp3": "/addition_facts_game/static/media/sonic.be1520054114d6c0da0f.mp3",
     "index.html": "/addition_facts_game/index.html",
     "main.218d7d93.css.map": "/addition_facts_game/static/css/main.218d7d93.css.map",
-    "main.c4a63cf7.js.map": "/addition_facts_game/static/js/main.c4a63cf7.js.map",
+    "main.e274bb3b.js.map": "/addition_facts_game/static/js/main.e274bb3b.js.map",
     "787.aa171e0e.chunk.js.map": "/addition_facts_game/static/js/787.aa171e0e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.218d7d93.css",
-    "static/js/main.c4a63cf7.js"
+    "static/js/main.e274bb3b.js"
   ]
 }
