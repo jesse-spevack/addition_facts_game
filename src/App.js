@@ -3,6 +3,8 @@ import AdditionProblem from './AdditionProblem';
 import Solution from './Solution';
 import Keyboard from './Keyboard';
 import metadata from './metadata.json'
+import success from "./assets/sonic.mp3"
+import failure from "./assets/mario.mp3"
 
 class App extends Component {
   constructor() {
@@ -67,8 +69,7 @@ class App extends Component {
   handleSubmit() {
     console.log("Handling submit")
     if (parseInt(this.state.solution) === (this.state.leftOperand + this.state.rightOperand)) {
-      let audio = new Audio("/sonic.mp3")
-      audio.play()
+      new Audio(success).play()
       this.setState({
         leftOperand: this.getDifficultyAdjustedNumber(),
         rightOperand: this.getDifficultyAdjustedNumber(),
@@ -78,8 +79,7 @@ class App extends Component {
         feedback: this.getPositiveFeedback() 
       })
     } else {
-      let audio = new Audio("/mario.mp3")
-      audio.play()
+      new Audio(failure).play()
       this.setState({
         solution: "",
         streak: 0,
