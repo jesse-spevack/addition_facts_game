@@ -13,11 +13,15 @@ class App extends Component {
       solution: "",
       streak: 0,
       score: 0,
-      feedback: "Let's get started!"
+      feedback: "⚡ Let's get started! ⚡",
+      min: 0,
+      max: 5,
+      level: 1,
     }
 
-    this.randomNumber = this.randomNumber.bind(this)
+    this.randomNugetDifficultyAdjustedNumbermber = this.getDifficultyAdjustedNumber.bind(this)
     this.getPositiveFeedback = this.getPositiveFeedback.bind(this)
+    this.isTimeToIncreaseDifficulty = this.isTimeToIncreaseDifficulty.bind(this)
     this.addSolution = this.addSolution.bind(this)
     this.deleteSolution = this.deleteSolution.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -25,13 +29,17 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({
-      leftOperand: this.randomNumber(),
-      rightOperand: this.randomNumber(),
+      leftOperand: this.getDifficultyAdjustedNumber(),
+      rightOperand: this.getDifficultyAdjustedNumber(),
     })
   }
 
-  randomNumber() {
-    return Math.floor(Math.random() * 12)
+  getDifficultyAdjustedNumber() {
+    return this.randomNumberBetween(this.state.min, this.state.max)
+  }
+
+  randomNumberBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
   addSolution(value) {
@@ -45,28 +53,46 @@ class App extends Component {
   }
 
   getPositiveFeedback() {
-    const feedback = ["😀", "😁", "🚀", "🎉"]
+    const feedback = ["⚡", "😀", "😁", "🚀", "🎉", "✨", "🔥", "🥳", "🎊", "🙌", "🫶", "⭐", "🤩", "🦄", "🐉", "🌟", "🌈", "🥳", "😎", "🤓", "🤖", "👍", "🙏", "🧠", "🧑‍🎓", "🦸", "🧙", "💃", "👑"]
     const randomIndex = Math.floor(Math.random() * feedback.length)
     return feedback[randomIndex]
+  }
+
+  isTimeToIncreaseDifficulty() {
+    const isSteakAlive = this.state.streak > 0;
+    const isLevelComplete = this.state.streak % 10 == 0
+    return isSteakAlive && isLevelComplete
   }
 
   handleSubmit() {
     console.log("Handling submit")
     if (parseInt(this.state.solution) === (this.state.leftOperand + this.state.rightOperand)) {
       this.setState({
-        leftOperand: this.randomNumber(),
-        rightOperand: this.randomNumber(),
+        leftOperand: this.getDifficultyAdjustedNumber(),
+        rightOperand: this.getDifficultyAdjustedNumber(),
         solution: "",
         streak: this.state.streak + 1,
         score: this.state.streak + 1,
         feedback: this.getPositiveFeedback() 
-
       })
     } else {
       this.setState({
         solution: "",
         streak: 0,
         feedback: "❌",
+        min: 0,
+        max: 5
+      })
+    }
+
+    if(this.isTimeToIncreaseDifficulty()) {
+      const newMax = this.state.max + 1
+      const newLevel = this.state.level + 1
+
+      console.log("Increasing difficulty. New max is: ", newMax)
+      this.setState({
+        max: newMax,
+        level: newLevel 
       })
     }
   }
@@ -77,12 +103,13 @@ class App extends Component {
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 text-white bg-slate-800">
         <div className="overflow-hidden rounded-lg bg-slate-700 shadow">
           <div className="p-1 grid grid-cols-2">
-            <div className="p-3">
-              <h1 className="text-xl text-left">{this.state.feedback}</h1>
+            <div className="p-4">
+              <h1 className={this.state.score == 0 ? "text-left" : "text-4xl text-left"}>{this.state.feedback}</h1>
             </div>
             <div className="p-1">
-              <h1 className="text-sm text-right">Total Score: {this.state.score}</h1>
-              <h1 className="text-sm text-right">Current Streak: {this.state.streak}</h1>
+              <h1 className="text-sm text-right">Score: {this.state.score}</h1>
+              <h1 className="text-sm text-right">Streak: {this.state.streak}</h1>
+              <h1 className="text-sm text-right">Level: {this.state.level}</h1>
             </div>
           </div>
           <div className="px-1 py-2">

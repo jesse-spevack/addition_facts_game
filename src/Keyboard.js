@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Keys from './Keys';
 import Key from './Key';
-import { BackspaceIcon as BackspaceIconOutline } from '@heroicons/react/24/outline'
+import { XMarkIcon as XMarkIconOutline } from '@heroicons/react/24/outline'
 import { CheckIcon as CheckIconOutline } from '@heroicons/react/24/outline'
 
 class Keyboard extends Component {
@@ -31,7 +31,7 @@ class Keyboard extends Component {
           <Keys handleClick={this.handleClick} />
           <div className="px-5 py-3 grid grid-cols-3 gap-3">
             <button onClick={this.delete} type="button" className="p-3 inline-block items-center h-14 w-14 overflow-hidden rounded-full border border-transparent bg-indigo-600 text-white shadow-sm hover:bg-indigo-700 active:outline-none active:ring-2 active:ring-indigo-500 active:ring-offset-2">
-              <BackspaceIconOutline className="h-8 w-8" area-hidden="true"/>
+              <XMarkIconOutline className="h-8 w-8" area-hidden="true"/>
             </button>    
             <Key handleClick={this.handleClick} number={0}/>
             <button onClick={this.submit} type="button" className="p-3 inline-block items-center h-14 w-14 overflow-hidden rounded-full border border-transparent bg-indigo-600 text-white shadow-sm hover:bg-indigo-700 active:outline-none active:ring-2 active:ring-indigo-500 active:ring-offset-2">
