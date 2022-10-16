@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/addition_facts_game/static/css/main.f6bb139f.css",
-    "main.js": "/addition_facts_game/static/js/main.9f2cf5d2.js",
+    "main.css": "/addition_facts_game/static/css/main.a964e0ea.css",
+    "main.js": "/addition_facts_game/static/js/main.6193f55e.js",
     "static/js/787.aa171e0e.chunk.js": "/addition_facts_game/static/js/787.aa171e0e.chunk.js",
     "index.html": "/addition_facts_game/index.html",
-    "main.f6bb139f.css.map": "/addition_facts_game/static/css/main.f6bb139f.css.map",
-    "main.9f2cf5d2.js.map": "/addition_facts_game/static/js/main.9f2cf5d2.js.map",
+    "main.a964e0ea.css.map": "/addition_facts_game/static/css/main.a964e0ea.css.map",
+    "main.6193f55e.js.map": "/addition_facts_game/static/js/main.6193f55e.js.map",
     "787.aa171e0e.chunk.js.map": "/addition_facts_game/static/js/787.aa171e0e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f6bb139f.css",
-    "static/js/main.9f2cf5d2.js"
+    "static/css/main.a964e0ea.css",
+    "static/js/main.6193f55e.js"
   ]
 }
