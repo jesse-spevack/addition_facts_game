@@ -13,9 +13,11 @@ class App extends Component {
       solution: "",
       streak: 0,
       score: 0,
+      feedback: "Let's get started!"
     }
 
     this.randomNumber = this.randomNumber.bind(this)
+    this.getPositiveFeedback = this.getPositiveFeedback.bind(this)
     this.addSolution = this.addSolution.bind(this)
     this.deleteSolution = this.deleteSolution.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -42,6 +44,12 @@ class App extends Component {
     this.setState({solution: solution})
   }
 
+  getPositiveFeedback() {
+    const feedback = ["😀", "😁", "🚀", "🎉"]
+    const randomIndex = Math.floor(Math.random() * feedback.length)
+    return feedback[randomIndex]
+  }
+
   handleSubmit() {
     console.log("Handling submit")
     if (parseInt(this.state.solution) === (this.state.leftOperand + this.state.rightOperand)) {
@@ -51,11 +59,14 @@ class App extends Component {
         solution: "",
         streak: this.state.streak + 1,
         score: this.state.streak + 1,
+        feedback: this.getPositiveFeedback() 
+
       })
     } else {
       this.setState({
         solution: "",
         streak: 0,
+        feedback: "❌",
       })
     }
   }
@@ -65,9 +76,14 @@ class App extends Component {
     return (
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 text-white bg-slate-800">
         <div className="overflow-hidden rounded-lg bg-slate-700 shadow">
-          <div className="p-6">
-            <h1 className="text-sm text-right">Total Score: {this.state.score}</h1>
-            <h1 className="text-sm text-right">Current Streak: {this.state.streak}</h1>
+          <div className="p-1 grid grid-cols-2">
+            <div className="">
+              <h1 className="text-lg text-left">{this.state.feedback}</h1>
+            </div>
+            <div className="">
+              <h1 className="text-sm text-right">Total Score: {this.state.score}</h1>
+              <h1 className="text-sm text-right">Current Streak: {this.state.streak}</h1>
+            </div>
           </div>
           <div className="px-1 py-2">
             <AdditionProblem
