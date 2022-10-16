@@ -77,10 +77,10 @@ class App extends Component {
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 text-white bg-slate-800">
         <div className="overflow-hidden rounded-lg bg-slate-700 shadow">
           <div className="p-1 grid grid-cols-2">
-            <div className="">
-              <h1 className="text-lg text-left">{this.state.feedback}</h1>
+            <div className="p-3">
+              <h1 className="text-xl text-left">{this.state.feedback}</h1>
             </div>
-            <div className="">
+            <div className="p-1">
               <h1 className="text-sm text-right">Total Score: {this.state.score}</h1>
               <h1 className="text-sm text-right">Current Streak: {this.state.streak}</h1>
             </div>

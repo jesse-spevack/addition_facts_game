@@ -27,7 +27,7 @@ class Keyboard extends Component {
   render () {
     return (
       <div>
-        <div className="pl-10 py-3 overflow-hidden">
+        <div className="pl-10 py-4 overflow-hidden">
           <Keys handleClick={this.handleClick} />
           <div className="px-5 py-3 grid grid-cols-3 gap-3">
             <button onClick={this.delete} type="button" className="p-3 inline-block items-center h-14 w-14 overflow-hidden rounded-full border border-transparent bg-indigo-600 text-white shadow-sm hover:bg-indigo-700 active:outline-none active:ring-2 active:ring-indigo-500 active:ring-offset-2">
