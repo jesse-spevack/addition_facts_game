@@ -65,10 +65,10 @@ class App extends Component {
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 text-white bg-slate-800">
         <div className="overflow-hidden rounded-lg bg-slate-700 shadow">
           <div className="p-6">
-            <h1 className="text-4xl text-right">Total Score: {this.state.score}</h1>
-            <h1 className="text-4xl text-right">Current Streak: {this.state.streak}</h1>
+            <h1 className="text-sm text-right">Total Score: {this.state.score}</h1>
+            <h1 className="text-sm text-right">Current Streak: {this.state.streak}</h1>
           </div>
-          <div className="px-4 py-10">
+          <div className="px-1 py-2">
             <AdditionProblem
               leftOperand={this.state.leftOperand}
               rightOperand={this.state.rightOperand}

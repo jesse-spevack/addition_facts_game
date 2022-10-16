@@ -8,8 +8,8 @@ class Solution extends Component {
   render () {
     return (
       <div>
-        <div className="h-48 col-start-3 col-span-2 row-span-1">
-          <p class="text-[172px] font-mono font-semibold text-center">{this.props.solution}</p>
+        <div className="py-2 h-24 col-start-3 col-span-2 row-span-1">
+          <p class="text-8xl min-h-full font-mono font-semibold text-center">{this.props.solution}</p>
         </div>
       </div>
     );
