@@ -5,6 +5,7 @@ import Keyboard from './Keyboard';
 import metadata from './metadata.json'
 import success from "./assets/sonic.mp3"
 import failure from "./assets/mario.mp3"
+import level from "./assets/level.mp3"
 
 class App extends Component {
   constructor() {
@@ -66,9 +67,19 @@ class App extends Component {
     return isSteakAlive && isLevelComplete
   }
 
+  isSolutionBlank() {
+    return this.state.solution === ""
+  }
+
+  isSolutionCorrect() {
+    return parseInt(this.state.solution) === (this.state.leftOperand + this.state.rightOperand)
+  }
+
   handleSubmit() {
-    console.log("Handling submit")
-    if (parseInt(this.state.solution) === (this.state.leftOperand + this.state.rightOperand)) {
+    if (this.isSolutionBlank()) {
+      return
+    }
+    else if (this.isSolutionCorrect()) {
       new Audio(success).play()
       this.setState({
         leftOperand: this.getDifficultyAdjustedNumber(),
@@ -92,6 +103,7 @@ class App extends Component {
     if(this.isTimeToIncreaseDifficulty()) {
       const newMax = this.state.max + 1
       const newLevel = this.state.level + 1
+      new Audio(level).play()
 
       console.log("Increasing difficulty. New max is: ", newMax)
       this.setState({
