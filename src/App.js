@@ -20,6 +20,7 @@ class App extends Component {
       min: 0,
       max: 5,
       level: 1,
+      error: false,
     }
 
     this.randomNugetDifficultyAdjustedNumbermber = this.getDifficultyAdjustedNumber.bind(this)
@@ -47,7 +48,7 @@ class App extends Component {
 
   addSolution(value) {
     let solution = this.state.solution + value
-    this.setState({solution: solution})
+    this.setState({solution: solution, error: false})
   }
 
   deleteSolution() {
@@ -77,6 +78,7 @@ class App extends Component {
 
   handleSubmit() {
     if (this.isSolutionBlank()) {
+      this.setState({error: true})
       return
     }
     else if (this.isSolutionCorrect()) {
@@ -87,7 +89,8 @@ class App extends Component {
         solution: "",
         streak: this.state.streak + 1,
         score: this.state.score + 1,
-        feedback: this.getPositiveFeedback() 
+        feedback: this.getPositiveFeedback(),
+        error: false
       })
     } else {
       new Audio(failure).play()
@@ -95,8 +98,7 @@ class App extends Component {
         solution: "",
         streak: 0,
         feedback: "❌",
-        min: 0,
-        max: 5
+        error: false
       })
     }
 
@@ -135,6 +137,7 @@ class App extends Component {
             />
             <Solution 
               solution={this.state.solution}
+              blankSolutionError={this.state.error}
             />
           </div>
         </div>
