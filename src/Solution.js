@@ -8,7 +8,7 @@ class Solution extends Component {
   render () {
     return (
       <div>
-        <div className="py-2 h-24 col-start-3 col-span-2 row-span-1">
+        <div className="py-1 h-24 col-start-3 col-span-2 row-span-1">
           <div className={this.props.blankSolutionError ? "border-4 border-pink-500 opacity-80 min-h-full mx-36 transition ease-in-out duration-500" : ""}>
             <p className="text-8xl min-h-full font-mono font-semibold text-center">{this.props.solution}</p>
           </div>

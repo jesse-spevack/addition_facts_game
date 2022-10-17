@@ -3,9 +3,10 @@ import AdditionProblem from './AdditionProblem';
 import Solution from './Solution';
 import Keyboard from './Keyboard';
 import metadata from './metadata.json'
-import success from "./assets/sonic.mp3"
-import failure from "./assets/mario.mp3"
-import level from "./assets/level.mp3"
+import success from "./assets/sonic.mp3";
+import failure from "./assets/mario.mp3";
+import levelUp from "./assets/level.mp3";
+import ScoreBoard from "./ScoreBoard";
 
 class App extends Component {
   constructor() {
@@ -25,7 +26,6 @@ class App extends Component {
 
     this.randomNugetDifficultyAdjustedNumbermber = this.getDifficultyAdjustedNumber.bind(this)
     this.getPositiveFeedback = this.getPositiveFeedback.bind(this)
-    this.isTimeToIncreaseDifficulty = this.isTimeToIncreaseDifficulty.bind(this)
     this.addSolution = this.addSolution.bind(this)
     this.deleteSolution = this.deleteSolution.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -62,12 +62,6 @@ class App extends Component {
     return feedback[randomIndex]
   }
 
-  isTimeToIncreaseDifficulty() {
-    const isSteakAlive = this.state.streak > 0;
-    const isLevelComplete = this.state.streak % 10 == 0
-    return isSteakAlive && isLevelComplete
-  }
-
   isSolutionBlank() {
     return this.state.solution === ""
   }
@@ -83,14 +77,29 @@ class App extends Component {
     }
     else if (this.isSolutionCorrect()) {
       new Audio(success).play()
+
+      const newStreak = this.state.streak + 1
+      const newScore = this.state.score + 1
+      const isLevelComplete = newStreak % 10 == 0
+      let level = this.state.level
+      let max = this.state.max
+
+      if(isLevelComplete) {
+        new Audio(levelUp).play()
+        level += 1
+        max += 1
+      }
+
       this.setState({
         leftOperand: this.getDifficultyAdjustedNumber(),
         rightOperand: this.getDifficultyAdjustedNumber(),
         solution: "",
-        streak: this.state.streak + 1,
-        score: this.state.score + 1,
+        streak: newStreak,
+        score: newScore,
         feedback: this.getPositiveFeedback(),
-        error: false
+        error: false,
+        max: max,
+        level: level
       })
     } else {
       new Audio(failure).play()
@@ -101,18 +110,6 @@ class App extends Component {
         error: false
       })
     }
-
-    if(this.isTimeToIncreaseDifficulty()) {
-      const newMax = this.state.max + 1
-      const newLevel = this.state.level + 1
-      new Audio(level).play()
-
-      console.log("Increasing difficulty. New max is: ", newMax)
-      this.setState({
-        max: newMax,
-        level: newLevel 
-      })
-    }
   }
 
 
@@ -120,17 +117,20 @@ class App extends Component {
     return (
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 text-white bg-slate-800">
         <div className="overflow-hidden rounded-lg bg-slate-700 shadow">
-          <div className="p-1 grid grid-cols-2">
-            <div className="p-4">
-              <h1 className={this.state.score == 0 ? "text-sm text-left" : "text-4xl text-left"}>{this.state.feedback}</h1>
-            </div>
-            <div className="p-1">
-              <h1 className="text-sm text-right">Score: {this.state.score}</h1>
-              <h1 className="text-sm text-right">Streak: {this.state.streak}</h1>
-              <h1 className="text-sm text-right">Level: {this.state.level}</h1>
-            </div>
+          <div className="pt-1">
+            <h1 className="text-3xl text-center transition-all">{this.state.feedback}</h1>
           </div>
-          <div className="px-1 py-2">
+          <div className="px-4 grid grid-cols-2">
+            <h1 className="text-sm text-left">Score: {this.state.score}</h1>
+            <h1 className="text-sm text-right">Streak: {this.state.streak}</h1>
+          </div>
+          <ScoreBoard 
+            label="XP"
+            xp={this.state.streak % 10}
+            nextLevelXp="10"
+            level={this.state.level}
+          />
+          <div className="px-1 pt-3">
             <AdditionProblem
               leftOperand={this.state.leftOperand}
               rightOperand={this.state.rightOperand}
