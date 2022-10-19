@@ -66,9 +66,9 @@ class XpBar extends Component {
 
     return (
       <div>
-        <div className="border flex">
-          <div className={xpBarWidth + " h-4 bg-amber-600 transition-all ease-in-out"}/>
-          <div className={remainingBarWidth + " h-4 bg-amber-200 transition-all ease-in-out"}/>
+        <div className="pt-0.5 sm:pt-1 flex">
+          <div className={xpBarWidth + " h-4 bg-indigo-600 transition-all ease-in-out"}/>
+          <div className={remainingBarWidth + " h-4 bg-indigo-200 transition-all ease-in-out"}/>
         </div>
       </div>
     );

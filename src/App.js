@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import AdditionProblem from './AdditionProblem';
 import Solution from './Solution';
 import Keyboard from './Keyboard';
-import metadata from './metadata.json'
 import success from "./assets/sonic.mp3";
 import failure from "./assets/mario.mp3";
 import levelUp from "./assets/level.mp3";
 import ScoreBoard from "./ScoreBoard";
+import VersionFooter from "./VersionFooter";
 
 class App extends Component {
   constructor() {
@@ -115,22 +115,9 @@ class App extends Component {
 
   render () {
     return (
-      <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 text-white bg-slate-800">
-        <div className="overflow-hidden rounded-lg bg-slate-700 shadow">
-          <div className="pt-1">
-            <h1 className="text-3xl text-center transition-all">{this.state.feedback}</h1>
-          </div>
-          <div className="px-4 grid grid-cols-2">
-            <h1 className="text-sm text-left">Score: {this.state.score}</h1>
-            <h1 className="text-sm text-right">Streak: {this.state.streak}</h1>
-          </div>
-          <ScoreBoard 
-            label="XP"
-            xp={this.state.streak % 10}
-            nextLevelXp="10"
-            level={this.state.level}
-          />
-          <div className="px-1 pt-3">
+      <div className="mx-auto text-white bg-slate-800">
+        <div className="overflow-hidden bg-slate-700 shadow">
+          <div className="px-1 pt-2 sm:px-6">
             <AdditionProblem
               leftOperand={this.state.leftOperand}
               rightOperand={this.state.rightOperand}
@@ -140,15 +127,21 @@ class App extends Component {
               blankSolutionError={this.state.error}
             />
           </div>
+          <ScoreBoard 
+            label="XP"
+            xp={this.state.streak % 10}
+            nextLevelXp="10"
+            level={this.state.level}
+            score={this.state.score}
+            streak={this.state.streak}
+          />
         </div>
         <Keyboard
           handleClick={this.addSolution}
           delete={this.deleteSolution}
           submit={this.handleSubmit}
         />
-        <div className="p-1">
-          <p className="text-xs text-right">Version: {metadata.buildMajor}.{metadata.buildMinor}.{metadata.buildRevision} {metadata.buildTag}</p>
-        </div>
+        <VersionFooter/>
       </div>
     )
   }
