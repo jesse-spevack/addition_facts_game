@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/addition_facts_game/static/css/main.04d612e1.css",
-    "main.js": "/addition_facts_game/static/js/main.a2c4862e.js",
+    "main.css": "/addition_facts_game/static/css/main.646585a4.css",
+    "main.js": "/addition_facts_game/static/js/main.d2c88763.js",
     "static/js/787.aa171e0e.chunk.js": "/addition_facts_game/static/js/787.aa171e0e.chunk.js",
     "static/media/level.mp3": "/addition_facts_game/static/media/level.c598431ac4a6265d45bb.mp3",
     "static/media/mario.mp3": "/addition_facts_game/static/media/mario.ab7a09cb02a9d6303c9b.mp3",
     "static/media/sonic.mp3": "/addition_facts_game/static/media/sonic.be1520054114d6c0da0f.mp3",
     "index.html": "/addition_facts_game/index.html",
-    "main.04d612e1.css.map": "/addition_facts_game/static/css/main.04d612e1.css.map",
-    "main.a2c4862e.js.map": "/addition_facts_game/static/js/main.a2c4862e.js.map",
+    "main.646585a4.css.map": "/addition_facts_game/static/css/main.646585a4.css.map",
+    "main.d2c88763.js.map": "/addition_facts_game/static/js/main.d2c88763.js.map",
     "787.aa171e0e.chunk.js.map": "/addition_facts_game/static/js/787.aa171e0e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.04d612e1.css",
-    "static/js/main.a2c4862e.js"
+    "static/css/main.646585a4.css",
+    "static/js/main.d2c88763.js"
   ]
 }
