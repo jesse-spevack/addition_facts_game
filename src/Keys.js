@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Key from './Key';
+import IconKey from './IconKey';
 
 class Keys extends Component {
   constructor(props) {
@@ -23,8 +24,18 @@ class Keys extends Component {
     })
 
     return (
-      <div className="px-6 grid grid-cols-3 gap-3">
+      <div className="px-4 pt-1 grid grid-cols-3 gap-y-2 justify-items-center">
         {displayKeys}
+        <IconKey 
+          specialAction={this.props.delete}
+        />
+        <div>
+          <Key handleClick={this.handleClick} number={0}/>
+        </div>
+        <IconKey
+          icon="check"
+          specialAction={this.props.submit}
+        />
       </div>
     );
   }

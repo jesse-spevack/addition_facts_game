@@ -6,13 +6,14 @@ class Solution extends Component {
   }
 
   render () {
+    const glowingClass = 1;
     return (
-      <div>
-        <div className="py-1 h-24 sm:h-36 col-start-3 col-span-2 row-span-1 xl:mx-96">
-          <div className={this.props.blankSolutionError ? "border-4 border-pink-500 opacity-80 min-h-full mx-36 sm:mx-[450px] sm:my-3 xl:my-1 transition ease-in-out duration-500" : ""}>
-            <p className="text-8xl sm:text-9xl min-h-full font-mono font-semibold text-center">{this.props.solution}</p>
-          </div>
+      <div className="pt-1 grid grid-cols-3">
+        <div className="col-start-2 row-start-1 h-20">
+          <p className="text-8xl sm:text-9xl font-mono font-semibold text-center">{this.props.solution}</p>
         </div>
+        <div className={this.props.blankSolutionError ? "border-4 border-lime-400 z-10 rounded-lg col-start-2 row-start-1 h-20 sm:h-36 xl:mx-96" : ""}/>
+        <div className={this.props.blankSolutionError ? "border-4 border-lime-600 z-0 blur -inset-0.5 rounded-lg col-start-2 row-start-1 h-20 sm:h-36 xl:mx-96" : ""}/>
       </div>
     );
   }
