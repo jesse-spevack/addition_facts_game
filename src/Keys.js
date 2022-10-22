@@ -24,7 +24,7 @@ class Keys extends Component {
     })
 
     return (
-      <div className="px-4 pt-1 grid grid-cols-3 gap-y-2 justify-items-center">
+      <div className="px-6 pt-3 grid grid-cols-3 gap-y-2 justify-items-center">
         {displayKeys}
         <IconKey 
           specialAction={this.props.delete}
