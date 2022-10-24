@@ -23,7 +23,7 @@ class SignIn extends Component {
 
     this.setState(
       {
-        username: username, 
+        username: username.toLowerCase(), 
         isUsernamePresent: username !== ""
       }
     )

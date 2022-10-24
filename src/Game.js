@@ -135,6 +135,10 @@ class Game extends Component {
       })
     }
 
+    this.saveProgress()
+  }
+
+  saveProgress() {
     localStorage.setItem(
       this.props.user, JSON.stringify(
         {
@@ -146,11 +150,12 @@ class Game extends Component {
         }
       )
     )
-
   }
 
 
   render () {
+    this.saveProgress()
+
     return (
       <div className="mx-auto text-white bg-slate-800">
         <div className="overflow-hidden bg-slate-700 shadow">
