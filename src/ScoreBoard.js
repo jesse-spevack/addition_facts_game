@@ -12,7 +12,7 @@ class ScoreBoard extends Component {
           <div className="px-1 grid grid-cols-2">
             <h1 className="text-sm sm:text-base xl:text-lg text-left">Score: {this.props.score}</h1>
             <h1 className="text-sm sm:text-base xl:text-lg text-right">Streak: {this.props.streak}</h1>
-            <h1 className="text-sm sm:text-base xl:text-lg text-left">{this.props.label}: {this.props.xp} / {this.props.nextLevelXp}</h1>
+            <h1 className="text-sm sm:text-base xl:text-lg text-left">XP: {this.props.xp} / {this.props.nextLevelXp}</h1>
             <h1 className="text-sm sm:text-base xl:text-lg text-right">Level: {this.props.level}</h1>
           </div>
           <XpBar
