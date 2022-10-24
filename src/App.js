@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Game from './Game';
 import SignIn from "./SignIn";
 import VersionFooter from "./VersionFooter";
+// import {db} from "./firebase";
+// import {collection, getDocs, addDoc, updateDoc} from "firebase/firestore";
 
 class App extends Component {
   constructor() {
@@ -13,6 +15,15 @@ class App extends Component {
 
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
+
+    // const usersCollectionRef = collection(db, "addition_facts")
+    // const getUser = async () => {
+    //   const data = await getDocs(usersCollectionRef)
+    //   console.log(data.docs[0].data())
+    //   console.log(data.docs[0].id)
+    // }
+
+    // getUser()
   }
 
   signIn(username) {
