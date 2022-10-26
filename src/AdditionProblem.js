@@ -8,7 +8,7 @@ class AdditionProblem extends Component {
   render () {
     return (
       <div>
-        <div className="grid grid-cols-3 grid-rows-2 gap-1 font-mono text-7xl sm:text-9xl text-right">
+        <div className="grid grid-cols-3 grid-rows-2 gap-1 text-7xl sm:text-9xl text-right">
           <div className="col-span-1 row-span-2 sm:ml-14 self-center">
             <p>+</p>
           </div>

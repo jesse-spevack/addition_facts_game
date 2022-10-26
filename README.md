@@ -50,3 +50,7 @@ Runs the custom deploy script that will:
 
 # Misc Notes
 I figured out how to deploy this app with this [react-gh-pages](https://github.com/gitname/react-gh-pages) post.
+
+# TODO
+- Time to solve with visual count down
+- Store problem solved

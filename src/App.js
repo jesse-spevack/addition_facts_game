@@ -51,7 +51,7 @@ class App extends Component {
     }
 
     return (
-      <div className="flex flex-col min-h-screen text-white bg-slate-800">
+      <div className="font-sans flex flex-col min-h-screen text-white bg-slate-800">
         <div className="flex-grow">
           {screen}
         </div>
