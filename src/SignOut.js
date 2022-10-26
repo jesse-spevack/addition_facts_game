@@ -19,10 +19,17 @@ class SignOut extends Component {
     }
 
     return (
-      <div className="px-2 pt-2 grid justify-items-end">
-        <span onClick={this.props.signOut} className={className}>
-          <span className="text-xs font-bold leading-none">{firstInitial}</span>
-        </span>
+      <div className="px-2 pt-2 grid grid-cols-2">
+        <div className="grid justify-items-start">
+          <div className="h-6 w-6">
+            <img src={process.env.PUBLIC_URL + '/math_hop.png'}></img>
+          </div>
+        </div>
+        <div className="grid justify-items-end">
+          <span onClick={this.props.signOut} className={className}>
+            <span className="text-xs font-bold leading-none">{firstInitial}</span>
+          </span>
+        </div>
       </div>
     );
   }

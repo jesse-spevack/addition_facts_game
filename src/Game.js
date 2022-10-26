@@ -157,27 +157,25 @@ class Game extends Component {
     this.saveProgress()
 
     return (
-      <div className="mx-auto text-white bg-slate-800">
-        <div className="overflow-hidden bg-slate-700 shadow">
-          <SignOut signOut={this.props.signOut} user={this.props.user}/>
-          <div className="px-1 pt-2 sm:px-6">
-            <AdditionProblem
-              leftOperand={this.state.leftOperand}
-              rightOperand={this.state.rightOperand}
-            />
-            <Solution 
-              solution={this.state.solution}
-              blankSolutionError={this.state.error}
-            />
-          </div>
-          <ScoreBoard 
-            xp={this.state.xp}
-            nextLevelXp={this.state.nextLevelXp}
-            level={this.state.level}
-            score={this.state.score}
-            streak={this.state.streak}
+      <div className="">
+        <SignOut signOut={this.props.signOut} user={this.props.user}/>
+        <div className="px-1 pt-2 sm:px-6">
+          <AdditionProblem
+            leftOperand={this.state.leftOperand}
+            rightOperand={this.state.rightOperand}
+          />
+          <Solution 
+            solution={this.state.solution}
+            blankSolutionError={this.state.error}
           />
         </div>
+        <ScoreBoard 
+          xp={this.state.xp}
+          nextLevelXp={this.state.nextLevelXp}
+          level={this.state.level}
+          score={this.state.score}
+          streak={this.state.streak}
+        />
         <Keyboard
           handleClick={this.addSolution}
           delete={this.deleteSolution}
