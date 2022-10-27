@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class SignOut extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
   }
@@ -21,7 +21,7 @@ class SignOut extends Component {
     return (
       <div className="px-2 pt-2 grid grid-cols-2">
         <div className="grid justify-items-start">
-          <div className="h-6 w-6">
+          <div onClick={this.props.showStats} className="h-6 w-6">
             <img src={process.env.PUBLIC_URL + '/math_hop.png'}></img>
           </div>
         </div>
@@ -35,4 +35,4 @@ class SignOut extends Component {
   }
 }
 
-export default SignOut;
+export default Header;
