@@ -61,7 +61,7 @@ class SignIn extends Component {
             onChange={this.setName}
           />
           <button
-            type="button"
+            type="submit"
             className={buttonClassName}
             onClick={this.signIn}
           >

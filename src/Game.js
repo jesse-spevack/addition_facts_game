@@ -19,27 +19,30 @@ class Game extends Component {
     }
 
     let storedProgress = localStorage.getItem(props.user)
+    console.log("stored progress: ", storedProgress)
     let streak = 0
     let score = 0
     let level = 1
-    let xp = 0
-    let nextLevelXp = 5 
+    let xp = 0 
+    let nextLevelXp = 5
+    let max = 5
 
     if (storedProgress) {
       storedProgress = JSON.parse(storedProgress)
 
-      streak = storedProgress.streak || 0
-      score = storedProgress.score || 0
-      level = storedProgress.level || 1
-      xp = storedProgress.xp || 0
-      nextLevelXp = storedProgress.nextLevelXp || 5
+      streak = storedProgress.streak || streak
+      score = storedProgress.score || score
+      level = storedProgress.level || level
+      xp = storedProgress.xp || xp
+      nextLevelXp = storedProgress.nextLevelXp || nextLevelXp
+      max = storedProgress.max || max
     }
 
     this.state = {
       leftOperand: 0,
       rightOperand: 0,
       min: 0,
-      max: 5,
+      max: max,
       solution: "",
       streak: streak,
       score: score,
@@ -147,6 +150,7 @@ class Game extends Component {
           score: this.state.score,
           streak: this.state.streak,
           nextLevelXp: this.state.nextLevelXp,
+          max: this.state.max,
         }
       )
     )
