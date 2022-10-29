@@ -1,18 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class StatsTable extends Component {
   constructor(props) {
     super(props);
   }
 
-  render () {
-    const stats = JSON.parse(this.props.stats)
-    const playerHistory = stats.playerHistory
-    const playerHistoryValues = Object.values(playerHistory)
-    const statistics = playerHistoryValues.map((val) => 
+  render() {
+    const stats = JSON.parse(this.props.stats);
+    const playerHistory = stats.playerHistory;
+    const playerHistoryValues = Object.values(playerHistory);
+    const statistics = playerHistoryValues.map((val) => (
       <div className="text-sm grid grid-cols-4 p-3">
         <div className="col-span-4 grid place-items-center">
-          <h1 className="text-base font-bold">{val.leftOperand} + {val.rightOperand}</h1>
+          <h1 className="text-base font-bold">
+            {val.leftOperand} + {val.rightOperand}
+          </h1>
         </div>
 
         <div className="">
@@ -40,13 +42,9 @@ class StatsTable extends Component {
           <span>{val.streak}</span>
         </div>
       </div>
-    )
-    
-    return (
-      <div className="">
-        {statistics}
-      </div>
-    );
+    ));
+
+    return <div className="">{statistics}</div>;
   }
 }
 

@@ -1,41 +1,32 @@
-import React, { Component } from 'react';
-import Key from './Key';
-import IconKey from './IconKey';
+import React, { Component } from "react";
+import Key from "./Key";
+import IconKey from "./IconKey";
 
 class Keys extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this)
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(number) {
-    this.props.handleClick(number)
+    this.props.handleClick(number);
   }
 
-  render () {
+  render() {
     const displayKeys = [...Array(9).keys()].map((number) => {
       return (
-        <Key 
-          key={number}
-          number={number+1}
-          handleClick={this.handleClick}
-        />
-      )
-    })
+        <Key key={number} number={number + 1} handleClick={this.handleClick} />
+      );
+    });
 
     return (
       <div className="px-6 pt-3 grid grid-cols-3 gap-y-2 justify-items-center">
         {displayKeys}
-        <IconKey 
-          specialAction={this.props.delete}
-        />
+        <IconKey specialAction={this.props.delete} />
         <div>
-          <Key handleClick={this.handleClick} number={0}/>
+          <Key handleClick={this.handleClick} number={0} />
         </div>
-        <IconKey
-          icon="check"
-          specialAction={this.props.submit}
-        />
+        <IconKey icon="check" specialAction={this.props.submit} />
       </div>
     );
   }

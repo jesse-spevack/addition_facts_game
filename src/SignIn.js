@@ -1,51 +1,49 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      isUsernamePresent: false
+      isUsernamePresent: false,
+    };
+
+    this.setName = this.setName.bind(this);
+    this.signIn = this.signIn.bind(this);
+  }
+
+  signIn() {
+    if (this.state.isUsernamePresent) {
+      this.props.signIn(this.state.username);
     }
-
-    this.setName = this.setName.bind(this)
-    this.signIn = this.signIn.bind(this)
   }
 
-  signIn () {
-    if(this.state.isUsernamePresent) {
-      this.props.signIn(this.state.username)
-    } 
+  setName(e) {
+    const username = e.target.value;
+
+    this.setState({
+      username: username.toLowerCase(),
+      isUsernamePresent: username !== "",
+    });
   }
 
-  setName (e) {
-    const username = e.target.value
-
-    this.setState(
-      {
-        username: username.toLowerCase(), 
-        isUsernamePresent: username !== ""
-      }
-    )
-  }
-
-  render () {
-    let buttonClassName = "inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-6 py-2 text-white font-semibold shadow-sm"
+  render() {
+    let buttonClassName =
+      "inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-6 py-2 text-white font-semibold shadow-sm";
 
     if (this.state.isUsernamePresent) {
-      buttonClassName += " hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      buttonClassName +=
+        " hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2";
     } else {
-      buttonClassName += " opacity-75"
+      buttonClassName += " opacity-75";
     }
 
     return (
       <div className="p-6 rounded-lg h-screen container mx-auto">
         <div className="grid gap-4 place-items-center">
-          <h1 className="text-xl text-center">
-            Welcome to
-          </h1>
+          <h1 className="text-xl text-center">Welcome to</h1>
           <div className="h-36 w-36">
-            <img src={process.env.PUBLIC_URL + '/math_hop.png'}></img>
+            <img src={process.env.PUBLIC_URL + "/math_hop.png"}></img>
           </div>
           <h1 className="text-5xl text-center font-semibold">
             <span className="text-transparent bg-gradient-to-r bg-clip-text from-indigo-500 to-fuchsia-500">

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class AdditionProblem extends Component {
   constructor(props) {
     super(props);
   }
 
-  render () {
+  render() {
     return (
       <div>
         <div className="grid grid-cols-3 grid-rows-2 gap-1 text-7xl sm:text-9xl text-right">

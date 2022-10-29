@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import StatsTable from "./StatsTable";
 
 class Stats extends Component {
@@ -6,8 +6,8 @@ class Stats extends Component {
     super(props);
   }
 
-  render () {
-    const user = this.props.user
+  render() {
+    const user = this.props.user;
     const player = user.charAt(0).toUpperCase() + user.slice(1);
     return (
       <div>
