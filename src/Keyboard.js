@@ -1,38 +1,22 @@
-import React, { Component } from "react";
-import Keys from "./Keys";
 import Key from "./Key";
+import IconKey from "./IconKey";
 
-class Keyboard extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.delete = this.delete.bind(this);
-    this.submit = this.submit.bind(this);
-  }
+const KeyBoard = ({ click, erase, check }) => {
+  const numbers = [...Array(9).keys()];
+  const keys = numbers.map((number) => (
+    <Key click={click} key={number} number={number + 1} />
+  ));
 
-  handleClick(number) {
-    this.props.handleClick(number);
-  }
-
-  delete() {
-    this.props.delete();
-  }
-
-  submit() {
-    this.props.submit();
-  }
-
-  render() {
-    return (
+  return (
+    <div className="px-6 pt-3 grid grid-cols-3 gap-y-2 justify-items-center">
+      {keys}
+      <IconKey click={erase} />
       <div>
-        <Keys
-          handleClick={this.handleClick}
-          delete={this.delete}
-          submit={this.submit}
-        />
+        <Key click={click} number={0} />
       </div>
-    );
-  }
-}
+      <IconKey icon="check" click={check} />
+    </div>
+  );
+};
 
-export default Keyboard;
+export default KeyBoard;

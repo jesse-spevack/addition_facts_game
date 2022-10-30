@@ -61,7 +61,7 @@ class App extends Component {
         screen = (
           <Stats
             user={this.state.user}
-            stats={localStorage.getItem(this.state.user)}
+            rawStats={localStorage.getItem(this.state.user)}
             back={this.backToGame}
           />
         );

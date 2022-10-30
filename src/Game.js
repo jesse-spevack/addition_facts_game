@@ -8,7 +8,6 @@ import Solution from "./Solution";
 import success from "./assets/sonic.mp3";
 import failure from "./assets/mario.mp3";
 import levelUp from "./assets/level.mp3";
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 class Game extends Component {
   constructor(props) {
@@ -294,11 +293,19 @@ class Game extends Component {
           score={this.state.score}
           streak={this.state.streak}
         />
-        <Keyboard
-          handleClick={this.addSolution}
-          delete={this.deleteSolution}
-          submit={this.handleSubmit}
-        />
+        <div>
+          <Keyboard
+            click={(number) => {
+              this.addSolution(number);
+            }}
+            erase={() => {
+              this.deleteSolution();
+            }}
+            check={() => {
+              this.handleSubmit();
+            }}
+          />
+        </div>
       </div>
     );
   }
