@@ -1,51 +1,79 @@
-import React, { Component } from "react";
+const StatsTable = ({ rawStats }) => {
+  const stats = rawStats ? JSON.parse(rawStats) : "";
+  const playerHistory = stats ? stats.playerHistory : "";
+  const problems = Object.keys(playerHistory).sort();
 
-class StatsTable extends Component {
-  constructor(props) {
-    super(props);
-  }
+  const items = problems.map((problem) => {
+    const data = playerHistory[problem];
+    return (
+      <tr key={problem}>
+        <td className="whitespace-nowrap text-sm font-medium">{problem}</td>
+        <td className="whitespace-nowrap text-center text-sm font-medium">
+          {data.correctCount}
+        </td>
+        <td className="whitespace-nowrap text-center text-sm font-medium">
+          {data.fastCorrectCount}
+        </td>
+        <td className="whitespace-nowrap text-center text-sm font-medium">
+          {data.streak}
+        </td>
+        <td className="whitespace-nowrap text-center text-sm font-medium">
+          {data.wrongCount}
+        </td>
+        <td className="whitespace-nowrap text-center text-sm font-medium">
+          {data.retired ? "Y" : "N"}
+        </td>
+      </tr>
+    );
+  });
 
-  render() {
-    const stats = JSON.parse(this.props.stats);
-    const playerHistory = stats.playerHistory;
-    const playerHistoryValues = Object.values(playerHistory);
-    const statistics = playerHistoryValues.map((val) => (
-      <div className="text-sm grid grid-cols-4 p-3">
-        <div className="col-span-4 grid place-items-center">
-          <h1 className="text-base font-bold">
-            {val.leftOperand} + {val.rightOperand}
-          </h1>
-        </div>
-
-        <div className="">
-          <span>Correct: </span>
-        </div>
-        <div className="font-bold text-center text-sm">
-          <span>{val.correctCount}</span>
-        </div>
-        <div className="">
-          <span>Incorrect: </span>
-        </div>
-        <div className="font-bold text-center">
-          <span>{val.wrongCount}</span>
-        </div>
-        <div className="">
-          <span>Fast: </span>
-        </div>
-        <div className="font-bold text-center">
-          <span>{val.fastCorrectCount}</span>
-        </div>
-        <div className="">
-          <span>streak: </span>
-        </div>
-        <div className="font-bold text-center">
-          <span>{val.streak}</span>
-        </div>
-      </div>
-    ));
-
-    return <div className="">{statistics}</div>;
-  }
-}
+  return (
+    <div>
+      <table className="min-w-full divide-y divide-gray-300">
+        <thead>
+          <tr>
+            <th
+              scope="col"
+              className="py-3.5 px-1 text-left text-sm font-semibold"
+            >
+              Problem
+            </th>
+            <th
+              scope="col"
+              className="py-3.5 px-1 text-left text-sm font-semibold"
+            >
+              Correct
+            </th>
+            <th
+              scope="col"
+              className="py-3.5 px-1 text-left text-sm font-semibold"
+            >
+              Fast
+            </th>
+            <th
+              scope="col"
+              className="py-3.5 px-1 text-left text-sm font-semibold"
+            >
+              Streak
+            </th>
+            <th
+              scope="col"
+              className="py-3.5 px-1 text-left text-sm font-semibold"
+            >
+              Wrong
+            </th>
+            <th
+              scope="col"
+              className="py-3.5 px-1 text-left text-sm font-semibold"
+            >
+              Retired
+            </th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-200">{items}</tbody>
+      </table>
+    </div>
+  );
+};
 
 export default StatsTable;
