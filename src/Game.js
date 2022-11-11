@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { useEffect, useState } from "react";
 import AdditionProblem from "./AdditionProblem";
 import Keyboard from "./Keyboard";
 import ScoreBoard from "./ScoreBoard";
@@ -9,173 +9,159 @@ import success from "./assets/sonic.mp3";
 import failure from "./assets/mario.mp3";
 import levelUp from "./assets/level.mp3";
 
-class Game extends Component {
-  constructor(props) {
-    super(props);
+const Game = ({ username, signOut, showStats }) => {
+  const [error, setError] = useState(false);
+  const [lastTenProblems, setLastTenProblems] = useState([]);
+  const [level, setLevel] = useState(1);
+  const [max, setMax] = useState(5);
+  const [nextLevelXp, setNextLevelXp] = useState(5);
+  const [playerHistory, setPlayerHistory] = useState({});
+  const [score, setScore] = useState(0);
+  const [solution, setSolution] = useState("");
+  const [streak, setStreak] = useState(0);
+  const [xp, setXp] = useState(0);
+  const [startTime, setStartTime] = useState(Date.now());
+  const [problem, setProblem] = useState({ leftOperand: 1, rightOperand: 2 });
 
-    if (props.user.toLowerCase() === "restart") {
+  useEffect(() => {
+    if (username === "restart") {
       localStorage.clear();
+    } else {
+      const rawData = localStorage.getItem(username);
+      const data = JSON.parse(rawData);
+      if (data && data.score && data.score > 0) {
+        setPlayerHistory({ ...data.playerHistory });
+        setLastTenProblems(data.lastTenProblems);
+        setLevel(data.level);
+        setMax(data.max);
+        setNextLevelXp(data.nextLevelXp);
+        setScore(data.score);
+        setStreak(data.streak);
+        setXp(data.xp);
+      }
     }
+    setProblem(getNewProblem());
+  }, []);
 
-    let storedProgress = localStorage.getItem(props.user);
-    let streak = 0;
-    let score = 0;
-    let level = 1;
-    let xp = 0;
-    let nextLevelXp = 5;
-    let max = 5;
-    let playerHistory = {};
-    let lastTenProblems = [];
-
-    if (storedProgress) {
-      storedProgress = JSON.parse(storedProgress);
-      streak = storedProgress.streak || streak;
-      score = storedProgress.score || score;
-      level = storedProgress.level || level;
-      xp = storedProgress.xp || xp;
-      nextLevelXp = storedProgress.nextLevelXp || nextLevelXp;
-      max = storedProgress.max || max;
-      playerHistory = storedProgress.playerHistory || playerHistory;
-      lastTenProblems = storedProgress.lastTenProblems || lastTenProblems;
+  useEffect(() => {
+    if (score > 0) {
+      const data = JSON.stringify({
+        playerHistory: playerHistory,
+        lastTenProblems: lastTenProblems,
+        level: level,
+        max: max,
+        nextLevelXp: nextLevelXp,
+        score: score,
+        streak: streak,
+        xp: xp,
+      });
+      localStorage.setItem(username, data);
     }
+  });
 
-    this.state = {
-      leftOperand: 0,
-      rightOperand: 0,
-      min: 0,
-      max: max,
-      solution: "",
-      streak: streak,
-      score: score,
-      level: level,
-      xp: xp,
-      nextLevelXp: nextLevelXp,
-      error: false,
-      playerHistory: playerHistory,
-      lastTenProblems: lastTenProblems,
-    };
+  const min = 0;
 
-    this.randomNugetDifficultyAdjustedNumbermber =
-      this.getDifficultyAdjustedNumber.bind(this);
-    this.addSolution = this.addSolution.bind(this);
-    this.deleteSolution = this.deleteSolution.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  const randomNumberBetween = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  };
+  const getDifficultyAdjustedNumber = (min, max) => {
+    return randomNumberBetween(min, max);
+  };
 
-  componentDidMount() {
-    let newProblem = this.getNewProblem();
-    this.setState({
-      leftOperand: newProblem.leftOperand,
-      rightOperand: newProblem.rightOperand,
-      startTime: Date.now(),
-    });
-  }
+  const getProblemKey = (leftOperand, rightOperand) => {
+    return `${leftOperand}+${rightOperand}`;
+  };
 
-  getDifficultyAdjustedNumber() {
-    return this.randomNumberBetween(this.state.min, this.state.max);
-  }
-
-  getNewProblem() {
-    let lastTenProblems = this.state.lastTenProblems;
+  const getNewProblem = () => {
     let newProblem = {};
-
     while (Object.keys(newProblem).length === 0) {
-      let leftOperand = this.getDifficultyAdjustedNumber();
-      let rightOperand = this.getDifficultyAdjustedNumber();
-      let problemKey = this.getProblemKey(leftOperand, rightOperand);
-      let problemHistory = this.state.playerHistory[problemKey];
-      let isRetired = !!(problemHistory && problemHistory.retired);
+      let leftOperand = getDifficultyAdjustedNumber(min, max);
+      let rightOperand = getDifficultyAdjustedNumber(min, max);
+      let problemKey = getProblemKey(leftOperand, rightOperand);
+      const problemHistory = playerHistory[problemKey];
+      const isRetired = problemHistory && problemHistory.retired;
+      const firstProblem = lastTenProblems[0];
 
-      // If the problem is not in the array of lastTenProblems
-      if (!isRetired && lastTenProblems.indexOf(problemKey) == -1) {
-        // If the array of lastTenProblems is 10 elements long
-        if (lastTenProblems.length === 10) {
-          lastTenProblems.shift();
+      if (!isRetired && lastTenProblems.indexOf(problemKey === -1)) {
+        let problemQueue = [...lastTenProblems, problemKey];
+        if (problemQueue.length >= 10) {
+          setLastTenProblems(
+            problemQueue.filter((problem) => problem !== firstProblem)
+          );
+        } else {
+          setLastTenProblems(problemQueue);
         }
 
-        lastTenProblems.push(problemKey);
         newProblem = { leftOperand: leftOperand, rightOperand: rightOperand };
       }
     }
 
     return newProblem;
-  }
+  };
 
-  randomNumberBetween(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
+  const addSolution = (value) => {
+    setError(false);
+    setSolution(solution + value);
+  };
 
-  addSolution(value) {
-    let solution = this.state.solution + value;
-    this.setState({ solution: solution, error: false });
-  }
+  const deleteSolution = (value) => {
+    setSolution(solution.slice(0, -1));
+  };
 
-  deleteSolution() {
-    let solution = this.state.solution.slice(0, -1);
-    this.setState({ solution: solution });
-  }
+  const submit = () => {
+    if (solution === "") {
+      setError(true);
+    } else {
+      scoreProblem();
+    }
+  };
 
-  isSolutionBlank() {
-    return this.state.solution === "";
-  }
-
-  isSolutionCorrect() {
+  const isSolutionCorrect = () => {
     return (
-      parseInt(this.state.solution) ===
-      this.state.leftOperand + this.state.rightOperand
+      parseInt(problem.leftOperand) + parseInt(problem.rightOperand) ===
+      parseInt(solution)
     );
-  }
+  };
 
-  getProblemKey(leftOperand, rightOperand) {
-    return `${leftOperand}+${rightOperand}`;
-  }
+  const playSound = (audio) => {
+    new Audio(audio).play();
+  };
 
-  scoreProblem() {
-    const correct = this.isSolutionCorrect();
-    const oldLeftOperand = this.state.leftOperand;
-    const oldRightOperand = this.state.rightOperand;
-    const oldPlayerHistory = this.state.playerHistory;
-    let timeToSolve = (Date.now() - this.state.startTime) / 1000.0;
-    let fastTimeToSolve = timeToSolve <= 3; // 3 seconds is fast
-    let problemKey = this.getProblemKey(oldLeftOperand, oldRightOperand);
-    let problem = oldPlayerHistory[problemKey];
-    // problem
-    // {
-    //   leftOperand:,
-    //   rightOperand:,
-    //   correctCount:,
-    //   wrongCount:,
-    //   fastCorrectCount:,
-    //   retired:,
-    // }
-    if (problem) {
+  const scoreProblem = () => {
+    const correct = isSolutionCorrect();
+    const timeToSolve = (Date.now() - startTime) / 1000.0;
+    const fastTimeToSolve = timeToSolve <= 3; // 3 seconds is fast
+    let problemKey = getProblemKey(problem.leftOperand, problem.rightOperand);
+    let problemStats = playerHistory[problemKey];
+
+    // updatePlayerHistory
+    if (problemStats) {
       if (correct) {
-        problem.correctCount += 1;
-        problem.streak += 1;
+        problemStats.correctCount += 1;
+        problemStats.streak += 1;
         if (fastTimeToSolve) {
-          problem.fastCorrectCount += 1;
+          problemStats.fastCorrectCount += 1;
         }
+      }
 
-        // If player has answered the question correctly 10 times in a row
-        const isProblemStreakSignificant = problem.streak >= 5;
-        const isProblemFastCountSignificant = problem.fastCorrectCount >= 5;
-        const isProblemCorrectCountSignificant = problem.correctCount >= 10;
-        const timeToRetireProblem =
-          isProblemCorrectCountSignificant ||
-          (isProblemStreakSignificant && isProblemFastCountSignificant);
+      const isProblemStreakSignificant = problemStats.streak >= 5;
+      const isProblemFastCountSignificant = problemStats.fastCorrectCount >= 5;
+      const isProblemCorrectCountSignificant = problemStats.correctCount >= 10;
+      const timeToRetireProblem =
+        isProblemCorrectCountSignificant ||
+        (isProblemStreakSignificant && isProblemFastCountSignificant);
 
-        if (timeToRetireProblem) {
-          problem.retired = true;
-        }
+      if (timeToRetireProblem) {
+        problemStats.retired = true;
       } else {
-        problem.wrongCount += 1;
-        problem.streak = 0;
-        problem.retired = false;
+        problemStats.wrongCount += 1;
+        problemStats.streak = 0;
+        problemStats.retired = false;
       }
     } else {
-      problem = {
-        leftOperand: oldLeftOperand,
-        rightOperand: oldRightOperand,
+      problemStats = {
+        leftOperand: problem.leftOperand,
+        rightOperand: problem.rightOperand,
         correctCount: correct ? 1 : 0,
         wrongCount: correct ? 0 : 1,
         streak: correct ? 1 : 0,
@@ -184,131 +170,68 @@ class Game extends Component {
       };
     }
 
-    let playerHistory = oldPlayerHistory;
-    playerHistory[problemKey] = problem;
+    let history = playerHistory;
+    history[problemKey] = problemStats;
+    setPlayerHistory(history);
 
     if (correct) {
-      new Audio(success).play();
+      playSound(success);
 
-      const newStreak = this.state.streak + 1;
-      const newScore = this.state.score + 1;
-      let xp = this.state.xp + 1;
+      const newStreak = streak + 1;
+      const newScore = score + 1;
+      const newXp = xp + 1;
+      const isLevelComplete = newXp >= nextLevelXp;
 
-      const isLevelComplete = xp >= this.state.nextLevelXp;
-
-      let level = this.state.level;
-      let max = this.state.max;
-      let nextLevelXp = this.state.nextLevelXp;
+      setStreak(newStreak);
+      setScore(newScore);
+      setXp(newXp);
 
       if (isLevelComplete) {
-        new Audio(levelUp).play();
-        level += 1;
-        max += 1;
-        nextLevelXp = level * 5;
-        xp = 0;
+        playSound(levelUp);
+
+        const newLevel = level + 1;
+        const newMax = max + 1;
+        const newNextLevelXp = newLevel * 5;
+        setLevel(newLevel);
+        setMax(newMax);
+        setNextLevelXp(newNextLevelXp);
+        setXp(0);
       }
 
-      let newProblem = this.getNewProblem();
-
-      this.setState(
-        {
-          leftOperand: newProblem.leftOperand,
-          rightOperand: newProblem.rightOperand,
-          solution: "",
-          streak: newStreak,
-          score: newScore,
-          error: false,
-          max: max,
-          level: level,
-          nextLevelXp: nextLevelXp,
-          xp: xp,
-          playerHistory: playerHistory,
-          startTime: Date.now(),
-        },
-        this.saveProgress()
-      );
+      setProblem(getNewProblem());
+      setSolution("");
     } else {
-      new Audio(failure).play();
-      this.setState(
-        {
-          solution: "",
-          streak: 0,
-          error: false,
-          playerHistory: playerHistory,
-          startTime: Date.now(),
-        },
-        this.saveProgress()
-      );
+      playSound(failure);
+      setSolution("");
+      setStreak(0);
+      setError(false);
     }
-  }
 
-  handleSubmit() {
-    if (this.isSolutionBlank()) {
-      this.setState({ error: true });
-      return;
-    } else {
-      this.scoreProblem();
-    }
-  }
+    setStartTime(Date.now());
+  };
 
-  saveProgress() {
-    const data = {
-      xp: this.state.xp,
-      level: this.state.level,
-      score: this.state.score,
-      streak: this.state.streak,
-      nextLevelXp: this.state.nextLevelXp,
-      max: this.state.max,
-      playerHistory: this.state.playerHistory,
-      lastTenProblems: this.state.lastTenProblems,
-    };
-
-    localStorage.setItem(this.props.user, JSON.stringify(data));
-  }
-
-  render() {
-    this.saveProgress();
-
-    return (
-      <div className="">
-        <Header
-          signOut={this.props.signOut}
-          user={this.props.user}
-          showStats={this.props.showStats}
+  return (
+    <div className="">
+      <Header signOut={signOut} user={username} showStats={showStats} />
+      <div className="px-1 pt-2 sm:px-6">
+        <AdditionProblem
+          leftOperand={problem.leftOperand}
+          rightOperand={problem.rightOperand}
         />
-        <div className="px-1 pt-2 sm:px-6">
-          <AdditionProblem
-            leftOperand={this.state.leftOperand}
-            rightOperand={this.state.rightOperand}
-          />
-          <Solution
-            solution={this.state.solution}
-            blankSolutionError={this.state.error}
-          />
-        </div>
-        <ScoreBoard
-          xp={this.state.xp}
-          nextLevelXp={this.state.nextLevelXp}
-          level={this.state.level}
-          score={this.state.score}
-          streak={this.state.streak}
-        />
-        <div>
-          <Keyboard
-            click={(number) => {
-              this.addSolution(number);
-            }}
-            erase={() => {
-              this.deleteSolution();
-            }}
-            check={() => {
-              this.handleSubmit();
-            }}
-          />
-        </div>
+        <Solution solution={solution} blankSolutionError={error} />
       </div>
-    );
-  }
-}
+      <ScoreBoard
+        xp={xp}
+        nextLevelXp={nextLevelXp}
+        level={level}
+        score={score}
+        streak={streak}
+      />
+      <div>
+        <Keyboard click={addSolution} erase={deleteSolution} check={submit} />
+      </div>
+    </div>
+  );
+};
 
 export default Game;
