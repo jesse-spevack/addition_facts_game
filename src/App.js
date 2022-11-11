@@ -27,15 +27,15 @@ const App = () => {
         <Stats
           user={username}
           rawStats={localStorage.getItem(username)}
-          back={setShowStats(false)}
+          back={() => setShowStats(false)}
         />
       );
     } else {
       screen = (
         <Game
-          user={username}
+          username={username}
           signOut={signOut}
-          showStats={setShowStats(true)}
+          showStats={() => setShowStats(true)}
         />
       );
     }
