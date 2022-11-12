@@ -22,6 +22,7 @@ const Game = ({ username, signOut, showStats }) => {
   const [xp, setXp] = useState(0);
   const [startTime, setStartTime] = useState(Date.now());
   const [problem, setProblem] = useState({ leftOperand: 1, rightOperand: 2 });
+  const [showHint, setShowHint] = useState(false);
 
   useEffect(() => {
     if (username === "restart") {
@@ -185,6 +186,7 @@ const Game = ({ username, signOut, showStats }) => {
       setStreak(newStreak);
       setScore(newScore);
       setXp(newXp);
+      setShowHint(false);
 
       if (isLevelComplete) {
         playSound(levelUp);
@@ -205,6 +207,7 @@ const Game = ({ username, signOut, showStats }) => {
       setSolution("");
       setStreak(0);
       setError(false);
+      setShowHint(true);
     }
 
     setStartTime(Date.now());
@@ -217,6 +220,7 @@ const Game = ({ username, signOut, showStats }) => {
         <AdditionProblem
           leftOperand={problem.leftOperand}
           rightOperand={problem.rightOperand}
+          showHint={showHint}
         />
         <Solution solution={solution} blankSolutionError={error} />
       </div>
