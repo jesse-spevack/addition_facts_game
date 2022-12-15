@@ -1,6 +1,5 @@
-const Header = ({ user, showStats, signOut }) => {
-  const username = user.toLowerCase();
-  const firstInitial = user.charAt(0).toUpperCase();
+const Header = ({ username, showStats, signOut }) => {
+  const firstInitial = username.charAt(0).toUpperCase();
   let className =
     "inline-flex h-6 w-6 items-center justify-center rounded-full text-white shadow-sm focus:outline-none focus:ring-0 active:ring-2 active:ring-offset-2";
   if (username === "audrey") {

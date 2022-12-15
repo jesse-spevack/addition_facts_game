@@ -13,7 +13,11 @@ const Hint = ({ leftOperand, rightOperand }) => {
   }
 
   const numbers = numbersArray.map((i) => {
-    return <div className="px-3 pb-1 text-white text-sm">{i}</div>;
+    return (
+      <div key={i} className="px-3 pb-1 text-white text-sm">
+        {i}
+      </div>
+    );
   });
 
   const blocks = solutionArray.map((i) => {
@@ -22,9 +26,12 @@ const Hint = ({ leftOperand, rightOperand }) => {
         ? "bg-fuchsia-500 text-fuchsia-500"
         : "bg-fuchsia-300 text-slate-800 font-bold";
 
-    const text = i;
     // const colorLevel = "600";
-    return <div className={"px-3 " + colorLevel}>{"+"}</div>;
+    return (
+      <div key={i} className={"px-3 " + colorLevel}>
+        {"+"}
+      </div>
+    );
   });
 
   return (

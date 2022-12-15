@@ -34,7 +34,7 @@ const SignIn = ({ signIn }) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            signIn(username);
+            signIn(username.trim());
           }}
           autoComplete="off"
         >

@@ -24,6 +24,9 @@ const Game = ({ username, signOut, showStats }) => {
   const [problem, setProblem] = useState({ leftOperand: 1, rightOperand: 2 });
   const [showHint, setShowHint] = useState(false);
 
+  // Sets the largest number the player can see regardless of level.
+  const ceiling = username === "eddie" ? 9 : username === "audrey" ? 12 : 10;
+
   useEffect(() => {
     if (username === "restart") {
       localStorage.clear();
@@ -192,7 +195,7 @@ const Game = ({ username, signOut, showStats }) => {
         playSound(levelUp);
 
         const newLevel = level + 1;
-        const newMax = max + 1;
+        const newMax = Math.min(max + 1, ceiling);
         const newNextLevelXp = newLevel * 5;
         setLevel(newLevel);
         setMax(newMax);
@@ -215,7 +218,7 @@ const Game = ({ username, signOut, showStats }) => {
 
   return (
     <div className="">
-      <Header signOut={signOut} user={username} showStats={showStats} />
+      <Header signOut={signOut} username={username} showStats={showStats} />
       <div className="px-1 pt-2 sm:px-6">
         <AdditionProblem
           leftOperand={problem.leftOperand}
