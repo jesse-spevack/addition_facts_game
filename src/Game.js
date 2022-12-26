@@ -10,6 +10,7 @@ import failure from "./assets/mario.mp3";
 import levelUp from "./assets/level.mp3";
 
 const Game = ({ username, signOut, showStats }) => {
+  const specialAudrey = username === "audrey";
   const [error, setError] = useState(false);
   const [lastTenProblems, setLastTenProblems] = useState([]);
   const [level, setLevel] = useState(1);
